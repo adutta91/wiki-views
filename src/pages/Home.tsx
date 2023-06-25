@@ -1,7 +1,10 @@
-const Home = () => {
+import Navbar from 'components/app/Navbar'
 
+const Home = () => {
   return (
-    <div>Home</div>
+    <>
+      <Navbar />
+    </>
   )
 }
 
