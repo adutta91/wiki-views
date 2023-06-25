@@ -4,6 +4,7 @@ import { styled } from 'styled-components';
 const StyledBox = styled(Box)`
   ${({ theme }) => `
     box-shadow: 0px 2px 0px 0px ${theme.colors.brandGreen}1A;
+    background-color: ${theme.colors.white};
   `}
 `
 
