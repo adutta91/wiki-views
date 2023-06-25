@@ -1,0 +1,13 @@
+{
+  "singleQuote": true,
+  "importOrder": [
+    "^react(.*)$",
+    "^[../../../../]",
+    "^[../../../]",
+    "^[../../]",
+    "^[../]",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}
