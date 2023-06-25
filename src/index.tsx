@@ -5,6 +5,11 @@ import Home from 'pages/Home';
 import "./index.module.scss";
 import { ThemeProvider } from 'styled-components';
 import theme from 'constants/theme'
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -13,7 +18,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-    <Home />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </ThemeProvider>
   </React.StrictMode>
 );
