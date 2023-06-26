@@ -10,20 +10,37 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchIntervalInBackground: false,
+      retry: 0,
+    },
+  },
+});
+
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </Router>
+      <QueryClientProvider client={queryClient}>
+        <GlobalStyles />
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Router>
+      </QueryClientProvider>
     </ThemeProvider>
   </React.StrictMode>
 );
