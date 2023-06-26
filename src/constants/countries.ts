@@ -1,3 +1,4 @@
+// from https://gist.github.com/ssskip/5a94bfcd2835bf1dea52
 const countries = {
   "AF": "Afghanistan",
   "AX": "Aland Islands",

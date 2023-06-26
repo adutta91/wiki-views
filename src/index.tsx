@@ -3,17 +3,21 @@ import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
 import Home from 'pages/Home';
 import GlobalStyles from './GlobalStyles';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, StyleSheetManager } from 'styled-components';
 import theme from 'constants/theme'
+import isPropValid from '@emotion/is-prop-valid';
 import {
   BrowserRouter as Router,
   Routes,
   Route,
 } from "react-router-dom";
+
 import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+
+import { ArticlesProvider } from 'contexts/ArticlesContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -32,16 +36,20 @@ const queryClient = new QueryClient({
 
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <QueryClientProvider client={queryClient}>
-        <GlobalStyles />
-        <Router>
-          <Routes>
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </Router>
-      </QueryClientProvider>
-    </ThemeProvider>
+    <StyleSheetManager shouldForwardProp={isPropValid}>
+      <ThemeProvider theme={theme}>
+        <QueryClientProvider client={queryClient}>
+          <ArticlesProvider>
+            <GlobalStyles />
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home />} />
+              </Routes>
+            </Router>
+          </ArticlesProvider>
+        </QueryClientProvider>
+      </ThemeProvider>
+    </StyleSheetManager>
   </React.StrictMode>
 );
 

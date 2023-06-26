@@ -9,12 +9,7 @@ type CircledIconProps = {
 } & IconProps
 
 const CircledIconWrapper = styled(Box)`
-  transition: all .2s ease-out;
-  cursor: pointer;
-  
-  &:hover {
-    box-shadow: 0 4px 15px 0 rgba(0,0,0, 0.25)
-  }
+
 `
 
 export const CircledIcon = ({ background, fill, type, iconProps = {}, ...props }: CircledIconProps): React.ReactElement => (

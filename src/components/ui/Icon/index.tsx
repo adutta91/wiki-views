@@ -7,6 +7,8 @@ import {
   PinOutline,
   ChevronLeft,
   ChevronRight,
+  Globe,
+  ChevronDown,
 } from './icons'
 
 const ICON_TYPES = {
@@ -14,8 +16,10 @@ const ICON_TYPES = {
   list: ListIcon,
   pinSolid: PinSolid,
   pinOutline: PinOutline,
+  globe: Globe,
   chevronLeft: ChevronLeft,
   chevronRight: ChevronRight,
+  chevronDown: ChevronDown,
 }
 
 export * from './CircledIcon'

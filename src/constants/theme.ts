@@ -20,6 +20,7 @@ const theme = {
     black: "#000000",
     brandGreen: "#025B4B",
     brandMarigold: "#E68A00",
+    brandOcean: "#2464C6",
     ivy300: "#B3CEC9",
     marigold200: "#FAE7CC",
     marigold600: "#BB9A6A",
@@ -28,6 +29,7 @@ const theme = {
     neutralGray500: "#A7AAAB",
     neutralGray600: "#737680",
     neutralGray900: "#05090D",
+    ocean200: "#DEE8F6",
     white: "#FFF",
   }
 }
