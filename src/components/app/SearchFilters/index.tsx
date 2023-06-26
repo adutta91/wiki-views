@@ -51,6 +51,7 @@ const SearchFilters = () => {
         options={[]}
         value="January 12, 2023"
         onSelect={val => console.log(`val -------->>>>>>>>`, val)}
+        zIndex="3"
       />
       <Divider />
       <SelectInput
@@ -60,6 +61,7 @@ const SearchFilters = () => {
         options={numPerPageOptions}
         value={numPerPage}
         onSelect={(val) => setNumPerPage(parseInt(val))}
+        zIndex="2"
       />
       <Divider />
       <SelectInput
@@ -69,6 +71,7 @@ const SearchFilters = () => {
         options={countryOptions}
         value={country}
         onSelect={val => setCountry(val as COUNTRY_OPTIONS)}
+        zIndex="1"
       />
       <Box flex=".75">
         <Button>Search</Button>

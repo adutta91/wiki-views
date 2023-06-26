@@ -105,7 +105,7 @@ const SelectInput = ({ label, icon, value, options, onSelect, ...props }: Select
         </Box>
         {value}
       </Box>
-      {options.length && open && (
+      {options.length && open ? (
         <DropdownWrapper
           open={open}
           position="absolute"
@@ -117,6 +117,7 @@ const SelectInput = ({ label, icon, value, options, onSelect, ...props }: Select
           boxShadow="0px 4px 24px 0px rgba(0, 0, 0, 0.12)"
           flexDirection="column"
           minWidth="200px"
+          width={{ xs: '100%', md: 'auto' }}
         >
           {options.map(option => (
             <Option key={option.value} onClick={() => onSelect(option.value)}>
@@ -124,7 +125,7 @@ const SelectInput = ({ label, icon, value, options, onSelect, ...props }: Select
             </Option>
           ))}
         </DropdownWrapper>
-      )}
+      ) : null}
     </Wrapper>
   )
 }
