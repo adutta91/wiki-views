@@ -6,6 +6,8 @@ import { CircledIcon } from "components/ui/Icon"
 import { styled } from "styled-components"
 import countries, { COUNTRY_OPTIONS } from "constants/countries"
 import { useArticlesContext } from "contexts/ArticlesContext"
+import DatePicker from "components/ui/DatePicker"
+import dayjs from "dayjs"
 
 const Divider = styled(Box)`
   ${({ theme }) => `
@@ -31,8 +33,16 @@ const numPerPageOptions = [25, 50, 75, 100, 200].map(num => ({
 }))
 
 const SearchFilters = () => {
-  const { date, country, numPerPage, setCountry, setNumPerPage } = useArticlesContext()
-  
+  const {
+    date,
+    setDate,
+    country,
+    numPerPage,
+    setCountry,
+    setNumPerPage,
+    search
+  } = useArticlesContext()
+
   return (
     <Box
       bgcolor={theme.colors.white}
@@ -43,21 +53,18 @@ const SearchFilters = () => {
       justifyContent="space-between"
       flexDirection={{ xs: 'column', md: 'row' }}
       gap="16px"
+      width="100%"
     >
-      <SelectInput
-        icon={<CircledIcon type="calendar" fill="brandGreen" background="avocadoGreen" />}
+      <DatePicker
         label={"Date"}
-        flex="1"
-        options={[]}
-        value="January 12, 2023"
-        onSelect={val => console.log(`val -------->>>>>>>>`, val)}
+        value={dayjs(date).format('MMMM D, YYYY')}
+        onSelect={setDate}
         zIndex="3"
       />
       <Divider />
       <SelectInput
         icon={<CircledIcon type="list" fill="brandMarigold" background="marigold200" />}
         label={"Num Results"}
-        flex="1"
         options={numPerPageOptions}
         value={numPerPage}
         onSelect={(val) => setNumPerPage(parseInt(val))}
@@ -67,14 +74,13 @@ const SearchFilters = () => {
       <SelectInput
         icon={<CircledIcon type="globe" fill="brandOcean" background="ocean200" />}
         label={"Country"}
-        flex="1"
         options={countryOptions}
         value={country}
         onSelect={val => setCountry(val as COUNTRY_OPTIONS)}
         zIndex="1"
       />
       <Box flex=".75">
-        <Button>Search</Button>
+        <Button onClick={search}>Search</Button>
       </Box>
     </Box>
   )

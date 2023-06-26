@@ -10,7 +10,9 @@ type SearchParams = {
 
 export type TopArticle = {
   article: string
+  project: string
   views_ceil: number
+  rank: number
 }
 
 type TopArticlesResponse = {
@@ -21,15 +23,21 @@ type TopArticlesResponse = {
   }
 }
 
+export type ArticleInfo = {
+  title: string
+  extract: string
+}
+
 type ArticleSummaryResponse = {
   data: {
     query: {
       pages: {
-        [id: string]: {
-          title: string
-          extracts: string
-        }
+        [id: string]: ArticleInfo
       }
+      normalized: {
+        from: string
+        to: string
+      }[]
     }
   }
 }
@@ -38,6 +46,7 @@ type TopViewsResponse = {
   data: {
     items: {
       views: number
+      timestamp: string
     }[]
   }
 }
@@ -59,7 +68,9 @@ export const fetchTopArticles = ({ country, date }: SearchParams) => {
 
   return useQuery<any, any, TopArticlesResponse, any>({
     queryKey: [`TOP_ARTICLES_${country}_${formattedDate}`],
-    queryFn: () => axios.get(url)
+    queryFn: () => axios.get(url),
+  }, {
+    enabled: false
   })
 }
 
@@ -71,13 +82,24 @@ export const fetchSummary = ({ title }: { title?: string }) => {
       queryKey: [`SUMMARY_${title}`],
       queryFn: () => axios.get(url),
     },
-    { enabled: !!title }
+    { enabled: false }
   )
 }
 
-export const fetchMonthlyViews = ({ title }: { title?: string }) => {
-  const start = format(startOfMonth(new Date), 'yyyyMMddhh')
-  const end = format(endOfMonth(new Date), 'yyyyMMddhh')
+type MonthlyViewsProps = {
+  title?: string;
+  start: string;
+  end: string;
+  enabled: boolean
+}
+export const fetchMonthlyViews = (
+  {
+    title,
+    start,
+    end,
+    enabled
+  }: MonthlyViewsProps
+) => {
   const url = TOP_VIEWS({ title, start, end })
 
   return useQuery<any, any, TopViewsResponse, any>(
@@ -85,6 +107,6 @@ export const fetchMonthlyViews = ({ title }: { title?: string }) => {
       queryKey: [`TOP_VIEWS_${title}`],
       queryFn: () => axios.get(url),
     },
-    { enabled: !!title }
+    { enabled }
   )
 }

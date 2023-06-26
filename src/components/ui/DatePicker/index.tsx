@@ -4,33 +4,16 @@ import theme from "constants/theme"
 import { styled } from "styled-components"
 import { Icon } from "../Icon"
 import InputGroup from "../InputGroup"
+import { CircledIcon } from "../Icon"
+import Dropdown from "../Dropdown"
+import { DateCalendar } from "@mui/x-date-pickers"
+import dayjs from "dayjs"
 
-import Dropdown, { DropdownRenderProps } from "../Dropdown"
-
-type SelectInputProps = {
+type DatePickerProps = {
   label: React.ReactNode
-  icon: React.ReactNode
-  options: {
-    value: string
-    label: string
-  }[]
   value?: string | number
   onSelect: (value: string) => void
 } & BoxTypes
-
-const Option = styled(Box)`
-  ${({ theme }) => `
-    cursor: pointer;
-    justify-content: center;
-    text-align: center;
-    transition: all .2s ease-out;
-    padding: 12px 0;
-
-    &:hover {
-      background-color: ${theme.colors.neutralGray100};
-    }
-  `}
-`
 
 const ChevronIcon = styled(Icon)<{ open: boolean }>`
   ${({ open }) => `
@@ -41,28 +24,27 @@ const ChevronIcon = styled(Icon)<{ open: boolean }>`
   `}
 `
 
-const SelectInput = ({ label, icon, value, options, onSelect, ...props }: SelectInputProps) => {
+const DatePicker = ({ label, value, onSelect, ...props }: DatePickerProps) => {
   return (
     <Dropdown
       fontFamily="Poppins, sans-serif"
       dropdownContent={({ setOpen }) => (
         <>
-          {options.map(option => (
-            <Option key={option.value} onClick={() => {
+          <DateCalendar
+            defaultValue={dayjs(value)}
+            onChange={val => {
               setOpen(false)
-              onSelect(option.value)
-            }}>
-              {option.label}
-            </Option>
-          ))}
+              onSelect(val?.format('YYYY/MM/DD') || '')
+            }}
+          />
         </>
       )}
-      render={({ open, setOpen }): React.ReactElement<DropdownRenderProps> => (
+      render={({ open, setOpen }) => (
         <InputGroup
           onClick={() => setOpen(!open)}
           cursor="pointer"
           fontFamily="Poppins, sans-serif"
-          icon={icon}
+          icon={<CircledIcon type="calendar" fill="brandGreen" background="avocadoGreen" />}
           label={(
             <Box
               color={theme.colors.neutralGray500}
@@ -78,7 +60,7 @@ const SelectInput = ({ label, icon, value, options, onSelect, ...props }: Select
           )}
           flex="1"
         >
-          {value}
+          <Box flex="1">{value}</Box>
         </InputGroup>
       )}
       {...props}
@@ -86,4 +68,4 @@ const SelectInput = ({ label, icon, value, options, onSelect, ...props }: Select
   )
 }
 
-export default SelectInput;
+export default DatePicker;

@@ -16,6 +16,8 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import { ArticlesProvider } from 'contexts/ArticlesContext';
 
@@ -39,14 +41,16 @@ root.render(
     <StyleSheetManager shouldForwardProp={isPropValid}>
       <ThemeProvider theme={theme}>
         <QueryClientProvider client={queryClient}>
-          <ArticlesProvider>
-            <GlobalStyles />
-            <Router>
-              <Routes>
-                <Route path="/" element={<Home />} />
-              </Routes>
-            </Router>
-          </ArticlesProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <ArticlesProvider>
+              <GlobalStyles />
+              <Router>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                </Routes>
+              </Router>
+            </ArticlesProvider>
+          </LocalizationProvider>
         </QueryClientProvider>
       </ThemeProvider>
     </StyleSheetManager>
