@@ -32,4 +32,6 @@ const theme = {
   }
 }
 
+export type ColorOptions = keyof typeof theme.colors
+
 export default theme
