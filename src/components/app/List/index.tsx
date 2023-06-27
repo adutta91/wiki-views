@@ -18,7 +18,7 @@ const List = () => {
         borderRadius={{xs: "0", md: "16px"}}
         width="100%"
       >
-        {displayItems.map(article => <ListItem key={article.rank} article={article} />)}
+        {displayItems.map(article => <ListItem key={`${article.rank}-${article.article}`} article={article} />)}
       </Box>
       <Pagination />
     </Box>

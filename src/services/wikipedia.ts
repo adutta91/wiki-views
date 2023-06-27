@@ -28,7 +28,7 @@ export type ArticleInfo = {
   extract: string
 }
 
-type ArticleSummaryResponse = {
+export type ArticleSummaryResponse = {
   data: {
     query: {
       pages: {
@@ -42,13 +42,9 @@ type ArticleSummaryResponse = {
   }
 }
 
-type TopViewsResponse = {
-  data: {
-    items: {
-      views: number
-      timestamp: string
-    }[]
-  }
+export type TopView = {
+  views: number
+  timestamp: string
 }
 
 const TOP_ARTICLES_BASE_URL = ({ date, }: SearchParams): string => `https://wikimedia.org/api/rest_v1/metrics/pageviews/top/en.wikipedia/all-access/${date}`
@@ -66,47 +62,28 @@ export const fetchTopArticles = ({ country, date }: SearchParams) => {
   const formattedDate = format(new Date(date), "yyyy/MM/dd")
   const url = getTopArticlesUrl({ country, date: formattedDate })
 
-  return useQuery<any, any, TopArticlesResponse, any>({
-    queryKey: [`TOP_ARTICLES_${country}_${formattedDate}`],
-    queryFn: () => axios.get(url),
-  }, {
-    enabled: false
-  })
+  return axios.get(url)
 }
 
 export const fetchSummary = ({ title }: { title?: string }) => {
   const url = SUMMARY_BASE_URL({ title })
 
-  return useQuery<any, any, ArticleSummaryResponse, any>(
-    {
-      queryKey: [`SUMMARY_${title}`],
-      queryFn: () => axios.get(url),
-    },
-    { enabled: false }
-  )
+  return axios.get(url)
 }
 
 type MonthlyViewsProps = {
   title?: string;
   start: string;
   end: string;
-  enabled: boolean
 }
 export const fetchMonthlyViews = (
   {
     title,
     start,
     end,
-    enabled
   }: MonthlyViewsProps
 ) => {
   const url = TOP_VIEWS({ title, start, end })
 
-  return useQuery<any, any, TopViewsResponse, any>(
-    {
-      queryKey: [`TOP_VIEWS_${title}`],
-      queryFn: () => axios.get(url),
-    },
-    { enabled }
-  )
+  return axios.get(url)
 }

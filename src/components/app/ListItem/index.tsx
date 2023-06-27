@@ -1,8 +1,8 @@
 import { Box } from "components/ui/Box"
 import theme from "constants/theme"
 import sanitizeTitle from "helpers/sanitizeTitle"
-import { useState } from "react"
-import { TopArticle, ArticleInfo } from "services/wikipedia"
+import { useEffect, useState } from "react"
+import { TopArticle, ArticleInfo, TopView } from "services/wikipedia"
 import { styled } from "styled-components"
 import { fetchSummary, fetchMonthlyViews, } from "services/wikipedia";
 import format from "date-fns/format"
@@ -43,19 +43,30 @@ const Preview = styled.p`
 
 const ListItem = ({ article }: { article: TopArticle }) => {
   const [open, setOpen] = useState(false)
+  const [articleInfo, setArticleInfo] = useState<ArticleInfo>({
+    title: sanitizeTitle(article.article),
+    extract: "Loading..."
+  })
+  const [topViews, setTopViews] = useState<TopView[]>([])
   const start = format(startOfMonth(new Date), 'yyyyMMddhh')
   const end = format(endOfMonth(new Date), 'yyyyMMddhh')
 
-  const { data: summaryData } = fetchSummary({ title: article.article })
-  const { data: viewsData } = fetchMonthlyViews({
-    title: article.article,
-    start,
-    end,
-    enabled: open
-  })
+  useEffect(() => {
+    if (open) {
+      fetchSummary({ title: article.article }).then(({ data }) => {
+        setArticleInfo(Object.values(data?.query?.pages || {})[0] as ArticleInfo)
+      })
 
-  const articleInfo = Object.values(summaryData?.data?.query?.pages || {})[0] as ArticleInfo
-  const topViews = (viewsData?.data?.items || []).sort((a, b) => b.views - a.views).slice(0, 3)
+      fetchMonthlyViews({
+        title: article.article,
+        start,
+        end,
+      }).then(({ data }) => {
+        setTopViews((data?.items || []).sort((a: TopView, b: TopView) => b.views - a.views).slice(0, 3))
+      })
+    }
+  }, [open])
+
 
   return (
     <Wrapper

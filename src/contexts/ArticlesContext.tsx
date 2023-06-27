@@ -44,15 +44,19 @@ export const ArticlesProvider = ({ children }: React.PropsWithChildren) => {
   const [date, setDate] = useState(format(subDays(new Date(), 1), 'yyyy/MM/dd'))
   const [country, setCountry] = useState(guessCountry())
 
-  const { data: topArticlesResponse, refetch } = fetchTopArticles({ country, date })
+  const search = () => {
+    fetchTopArticles({ country, date }).then(({ data }) => {
+      if (data?.items?.[0]?.articles?.length) {
+        setArticles(data?.items?.[0]?.articles)
+      } else {
+        setArticles([])
+      }
+    })
+  }
 
   useEffect(() => {
-    if (topArticlesResponse?.data?.items?.[0]?.articles?.length) {
-      setArticles(topArticlesResponse?.data?.items?.[0]?.articles)
-    } else {
-      setArticles([])
-    }
-  }, [topArticlesResponse])
+    search()
+  }, [])
 
   return (
     <ArticlesContext.Provider value={{
@@ -65,7 +69,7 @@ export const ArticlesProvider = ({ children }: React.PropsWithChildren) => {
       setDate,
       setCountry,
       setPinnedArticles,
-      search: refetch
+      search
     }}>
       {children}
     </ArticlesContext.Provider>
