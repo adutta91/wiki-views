@@ -8,6 +8,8 @@ import { fetchSummary, fetchMonthlyViews, } from "services/wikipedia";
 import format from "date-fns/format"
 import { startOfMonth, endOfMonth } from "date-fns"
 import dayjs from "dayjs"
+import { Icon } from "components/ui/Icon"
+import { useArticlesContext } from "contexts/ArticlesContext"
 
 const Wrapper = styled(Box)<{ open: boolean }>`
   ${({ open }) => `
@@ -41,8 +43,29 @@ const Preview = styled.p`
   `}
 `
 
+const ActiveIcon = styled(Icon)<{ pinned: boolean }>`
+  ${({ pinned }) => `
+    @keyframes pop-in {
+      0% {
+        transform: scale(.8);
+      }
+      60% {
+        transform: scale(1.2);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    ${pinned && `animation: pop-in .25s ease-out forwards;`}
+  `}
+`
+
 const ListItem = ({ article }: { article: TopArticle }) => {
+  const { pinArticle, unpinArticle, isPinned } = useArticlesContext()
+
   const [open, setOpen] = useState(false)
+  const [pinned, setPinned] = useState(isPinned(article))
   const [articleInfo, setArticleInfo] = useState<ArticleInfo>({
     title: sanitizeTitle(article.article),
     extract: "Loading..."
@@ -92,8 +115,24 @@ const ListItem = ({ article }: { article: TopArticle }) => {
         <Box
           color={theme.colors.neutralGray600}
           fontFamily="Poppins, sans-serif"
+          alignItems="center"
+          gap="20px"
         >
           {article.views_ceil.toLocaleString()} views
+          <ActiveIcon
+            type={pinned ? 'pinSolid' : 'pinOutline'}
+            fill="marigold600"
+            pinned={pinned}
+            onClick={(e: React.MouseEvent) => {
+              e.stopPropagation()
+              const newPinnedValue = !pinned;
+
+              if (newPinnedValue) pinArticle(article)
+              else unpinArticle(article)
+
+              setPinned(newPinnedValue)
+            }}
+          />
         </Box>
       </Box>
       {

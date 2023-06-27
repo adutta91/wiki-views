@@ -27,6 +27,7 @@ export * from './CircledIcon'
 export type IconProps = {
   type: keyof typeof ICON_TYPES,
   fill?: ColorOptions
+  onClick?: (e: React.MouseEvent) => void
 } & BoxTypes;
 
 export const Icon = ({ type, fill, ...props }: IconProps): React.ReactElement => {

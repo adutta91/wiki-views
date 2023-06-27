@@ -74,7 +74,7 @@ const Pagination = () => {
   const range = getValidPageRange(currentPage, numPages)
 
   return (
-    <Box m="40px auto 0" gap="24px">
+    <Box m="20px auto 0" gap="24px">
       <StyledIconButton
         disabled={currentPage === 0}
         type="chevronLeft"

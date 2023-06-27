@@ -2,13 +2,14 @@ import Navbar from 'components/app/Navbar'
 import PageContent from 'components/ui/PageContent'
 import Heading from 'components/ui/Heading'
 import SearchFilters from 'components/app/SearchFilters'
-import List from 'components/app/List'
+import ArticleList from 'components/app/ArticleList'
 import { FadeIn } from 'components/ui/Box/TransitionedBox'
 import { useArticlesContext } from 'contexts/ArticlesContext'
 import { PaginationProvider } from 'contexts/PaginationContext'
+import List from 'components/app/List'
 
 const Home = () => {
-  const { articles, numPerPage } = useArticlesContext()
+  const { articles, numPerPage, pinnedArticles } = useArticlesContext()
 
   return (
     <>
@@ -20,9 +21,16 @@ const Home = () => {
         <FadeIn animationDelay='0.2s' zIndex="2">
           <SearchFilters />
         </FadeIn>
+        {
+          pinnedArticles.length ? (
+            <FadeIn animationDelay='0.4s' zIndex="1">
+              <List items={pinnedArticles} />
+            </FadeIn>
+          ) : null
+        }
         <FadeIn animationDelay='0.4s' zIndex="1">
           <PaginationProvider list={articles} numPerPage={numPerPage}>
-            <List />
+            <ArticleList />
           </PaginationProvider>
         </FadeIn>
       </PageContent>

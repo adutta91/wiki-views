@@ -16,7 +16,9 @@ type ArticlesContextType = {
   setNumPerPage: Dispatch<SetStateAction<number>>
   setDate: Dispatch<SetStateAction<string>>
   setCountry: Dispatch<SetStateAction<COUNTRY_OPTIONS | undefined>>
-  setPinnedArticles: Dispatch<SetStateAction<TopArticle[]>>
+  pinArticle: (article: TopArticle) => void
+  unpinArticle: (article: TopArticle) => void
+  isPinned: (article: TopArticle) => boolean
   search: () => void
 };
 
@@ -29,17 +31,28 @@ const defaultState = {
   setDate: () => {},
   setCountry: () => {},
   setSelectedArticle: () => {},
-  setPinnedArticles: () => {},
+  pinArticle: () => {},
+  unpinArticle: () => {},
+  isPinned: () => false,
   search: () => {},
 }
 
 const ArticlesContext = createContext<ArticlesContextType>(defaultState);
 
+const loadPinnedArticles = () => {
+  if (window.localStorage.getItem('gtWiki_pinnedArticles')) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return JSON.parse(window.localStorage.getItem('gtWiki_pinnedArticles')!)
+  }
+
+  return []
+}
+
 export const useArticlesContext = () => useContext(ArticlesContext)
 
 export const ArticlesProvider = ({ children }: React.PropsWithChildren) => {
   const [articles, setArticles] = useState<TopArticle[]>([])
-  const [pinnedArticles, setPinnedArticles] = useState<TopArticle[]>([])
+  const [pinnedArticles, setPinnedArticles] = useState<TopArticle[]>(loadPinnedArticles())
   const [numPerPage, setNumPerPage] = useState<number>(25)
   const [date, setDate] = useState(format(subDays(new Date(), 1), 'yyyy/MM/dd'))
   const [country, setCountry] = useState(guessCountry())
@@ -58,6 +71,34 @@ export const ArticlesProvider = ({ children }: React.PropsWithChildren) => {
     search()
   }, [])
 
+  useEffect(() => {
+    savePinnedArticles()
+  }, [pinnedArticles.length])
+
+  const savePinnedArticles = () => {
+    window.localStorage.setItem('gtWiki_pinnedArticles', JSON.stringify(pinnedArticles))
+  }
+
+  const pinArticle = (article: TopArticle) => {
+    setPinnedArticles([ ...pinnedArticles, article ])
+  }
+
+  const unpinArticle = (article: TopArticle) => {
+    const oldArticles = [...pinnedArticles]
+    const index = oldArticles.findIndex(item => JSON.stringify(article) === JSON.stringify(item));
+    
+    if (index !== -1) {
+      oldArticles.splice(index, 1);
+      setPinnedArticles(oldArticles)
+    }
+  }
+
+  const isPinned = (article: TopArticle) => {
+    const index = pinnedArticles.findIndex(item => JSON.stringify(article) === JSON.stringify(item));
+
+    return index !== -1
+  }
+
   return (
     <ArticlesContext.Provider value={{
       articles,
@@ -68,7 +109,9 @@ export const ArticlesProvider = ({ children }: React.PropsWithChildren) => {
       setNumPerPage,
       setDate,
       setCountry,
-      setPinnedArticles,
+      pinArticle,
+      unpinArticle,
+      isPinned,
       search
     }}>
       {children}
