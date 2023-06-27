@@ -65,6 +65,7 @@ export const ArticlesProvider = ({ children }: React.PropsWithChildren) => {
         setArticles([])
       }
     }).catch((err) => {
+      console.error(err)
       console.error('Cannot find top articles')
       setArticles([])
     })

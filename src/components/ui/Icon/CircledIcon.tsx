@@ -1,6 +1,6 @@
 import { BoxTypes } from '../Box'
 import { Icon, IconProps } from './index'
-import theme, { ColorOptions } from 'constants/theme'
+import { ColorOptions } from 'constants/theme'
 import { Encircle } from '../Encircle'
 
 type CircledIconProps = {

@@ -1,7 +1,6 @@
 import axios from "axios";
 import { COUNTRY_OPTIONS } from "constants/countries"
-import { useQuery } from "@tanstack/react-query";
-import { format, startOfMonth, endOfMonth } from "date-fns";
+import { format } from "date-fns";
 
 type SearchParams = {
   country?: COUNTRY_OPTIONS;
@@ -13,14 +12,6 @@ export type TopArticle = {
   project: string
   views_ceil: number
   rank: number
-}
-
-type TopArticlesResponse = {
-  data: {
-    items: {
-      articles: TopArticle[]
-    }[]
-  }
 }
 
 export type ArticleInfo = {

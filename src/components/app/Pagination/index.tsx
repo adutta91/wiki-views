@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Box } from "components/ui/Box"
 import { usePaginationContext } from "contexts/PaginationContext"
 import { CircledIcon } from "components/ui/Icon"

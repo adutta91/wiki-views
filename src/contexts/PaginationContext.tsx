@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type PaginationContextType = {

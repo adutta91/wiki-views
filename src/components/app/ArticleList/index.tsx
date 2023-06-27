@@ -1,5 +1,4 @@
 import { usePaginationContext } from "contexts/PaginationContext"
-import { TopArticle } from "services/wikipedia"
 import List from "../List"
 import Pagination from "../Pagination"
 import { Box } from "components/ui/Box"
