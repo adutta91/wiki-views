@@ -2,6 +2,8 @@
 
 A simple SPA to search and display the most-viewed articles on wikipedia
 
+![Alt text](public/images/screenshot.png?raw=true "Home page")
+
 ## Features
 * search by date and country
 * frontend pagination of article list
