@@ -13,6 +13,7 @@ A simple SPA to search and display the most-viewed articles on wikipedia
 * cache responses for top articles (perhaps utilizing a library like useQuery)
 * spinner/loading animation
 * make the country select a type-ahead component for easier selection
+* increased test coverage (unit && e2e)
 
 ## To run:
   * clone the repo and `cd wiki-views`

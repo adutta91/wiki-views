@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
+import validatePageChange from "helpers/validatePageChange";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 type PaginationContextType = {
@@ -39,13 +39,6 @@ export const PaginationProvider = ({
   const [displayItems, setDisplayItems] = useState<any[]>([])
   const numPages = useMemo(() => Math.ceil(list.length / numPerPage), [list, numPerPage])
 
-  const validatePage = (idx: number): number => {
-    if (idx >= list.length) return list.length - 1
-    if (idx < 0) return 0
-
-    return idx
-  }
-
   useEffect(() => {
     setDisplayItems(list.slice(currentPage * numPerPage, (currentPage + 1) * numPerPage))
   }, [list, currentPage, numPerPage])
@@ -54,9 +47,9 @@ export const PaginationProvider = ({
     <PaginationContext.Provider value={{
       currentPage,
       numPages,
-      goToPage: (idx: number) => setCurrentPage(validatePage(idx)),
-      nextPage: () => setCurrentPage(validatePage(currentPage + 1)),
-      prevPage: () => setCurrentPage(validatePage(currentPage - 1)),
+      goToPage: (idx: number) => setCurrentPage(validatePageChange(idx, list)),
+      nextPage: () => setCurrentPage(validatePageChange(currentPage + 1, list)),
+      prevPage: () => setCurrentPage(validatePageChange(currentPage - 1, list)),
       displayItems
     }}>
       {children}

@@ -10,6 +10,7 @@ const StyledBox = styled(Box)`
 
 const Navbar = () => (
   <StyledBox
+    data-testid="navbar"
     width="100%"
     height={{xs: "72px", md: "80px"}}
   />

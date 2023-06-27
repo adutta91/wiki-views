@@ -3,61 +3,12 @@ import theme from "constants/theme"
 import sanitizeTitle from "helpers/sanitizeTitle"
 import { useEffect, useState } from "react"
 import { TopArticle, ArticleInfo, TopView } from "services/wikipedia"
-import { styled } from "styled-components"
 import { fetchSummary, fetchMonthlyViews, } from "services/wikipedia";
 import format from "date-fns/format"
 import { startOfMonth, endOfMonth } from "date-fns"
 import dayjs from "dayjs"
-import { Icon } from "components/ui/Icon"
 import { useArticlesContext } from "contexts/ArticlesContext"
-
-const Wrapper = styled(Box)<{ open: boolean }>`
-  ${({ open }) => `
-    transition: all .2s ease-out;
-
-    &:hover {
-      box-shadow: 0px 2px 0px 1px rgba(5, 9, 13, 0.06);
-    }
-
-    ${open && `
-      max-height: 400px;
-      overflow: scroll;
-    `}
-  `}
-`
-
-const Preview = styled.p`
-  ${({ theme }) => `
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    color: ${theme.colors.neutralGray600};
-    display: -webkit-box;
-    font-size: 14px;
-    letter-spacing: -0.28px;
-    line-height: 1.65;
-    line-height: 180%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  `}
-`
-
-const ActiveIcon = styled(Icon)<{ pinned: boolean }>`
-  ${({ pinned }) => `
-    @keyframes pop-in {
-      0% {
-        transform: scale(.8);
-      }
-      60% {
-        transform: scale(1.2);
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    ${pinned && `animation: pop-in .25s ease-out forwards;`}
-  `}
-`
+import { Wrapper, Preview, ActiveIcon } from './styles'
 
 const ListItem = ({ article }: { article: TopArticle }) => {
   const { pinArticle, unpinArticle, isPinned } = useArticlesContext()
@@ -88,7 +39,6 @@ const ListItem = ({ article }: { article: TopArticle }) => {
     }
   }, [open])
 
-
   return (
     <Wrapper
       p={{xs: "24px 12px", md: "24px"}}
@@ -103,6 +53,7 @@ const ListItem = ({ article }: { article: TopArticle }) => {
       flexDirection="column"
       onClick={() => setOpen(!open)}
       maxHeight={{ xs: 'none', md: '74px' }}
+      data-testid="list-item"
     >
       <Box gap="20px">
         <Box color={theme.colors.neutralGray500} width="20px" fontFamily="Lora">

@@ -60,6 +60,7 @@ const SearchFilters = () => {
         value={dayjs(date).format('MMMM D, YYYY')}
         onSelect={setDate}
         zIndex="3"
+        data-testid="date-picker"
       />
       <Divider />
       <SelectInput
@@ -69,6 +70,7 @@ const SearchFilters = () => {
         value={numPerPage}
         onSelect={(val) => setNumPerPage(parseInt(val))}
         zIndex="2"
+        data-testid="num-per-page-picker"
       />
       <Divider />
       <SelectInput
@@ -77,6 +79,7 @@ const SearchFilters = () => {
         options={countryOptions}
         value={country}
         onSelect={val => setCountry(val as COUNTRY_OPTIONS)}
+        data-testid="country-picker"
         zIndex="1"
       />
       <Box flex=".75">

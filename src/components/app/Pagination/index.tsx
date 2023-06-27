@@ -2,64 +2,14 @@
 
 import { Box } from "components/ui/Box"
 import { usePaginationContext } from "contexts/PaginationContext"
-import { CircledIcon } from "components/ui/Icon"
-import { styled } from "styled-components"
-import { Encircle } from "components/ui/Encircle"
-
-const StyledIconButton = styled(CircledIcon)<{ disabled: boolean }>`
-  ${({ theme, disabled }) => `
-    border: 1px solid ${theme.colors.neutralGray400};
-    cursor: pointer;
-    transition: all .2s ease-out;
-    background: ${theme.colors.white};
-
-    &:hover {
-      box-shadow: 0 2px 10px -2px ${theme.colors.brandGreen};
-    }
-
-    ${disabled && `
-      cursor: not-allowed;
-      background: ${theme.colors.neutralGray400};
-
-      svg {
-        fill: ${theme.colors.neutralGray600};
-      }
-
-      &:hover {
-        box-shadow: none;
-      }
-    `}
-  `}
-`
-
-const PageButton = styled(Encircle)<{ active: boolean }>`
-  ${({ theme, active }) => `
-    1px solid ${theme.colors.neutralGray400};
-    cursor: pointer;
-    transition: all .2s ease-out;
-
-    background: ${active ? theme.colors.avocadoGreen : theme.colors.white};
-    color: ${active ? theme.colors.brandGreen : theme.colors.neutralGray900};
-    border: 1px solid ${theme.colors.neutralGray400};
-    
-    &:hover {
-      box-shadow: 0 2px 10px -2px ${theme.colors.brandGreen};
-    }
-  `}
-`
-
-const validatePage = (idx: number, list: any[]): number => {
-  if (idx >= list.length) return list.length - 1
-  if (idx < 0) return 0
-
-  return idx
-}
+import validatePageChange from "helpers/validatePageChange"
+import { StyledIconButton, PageButton } from './styles'
 
 const getValidPageRange = (currentPage: number, numPages: number): number[] => {
   const allPages = [...Array(numPages)].map((_el, i) => i)
 
-  const bottomRange = validatePage(currentPage - 2, allPages)
-  const topRange = validatePage(currentPage + 3, allPages)
+  const bottomRange = validatePageChange(currentPage - 2, allPages)
+  const topRange = validatePageChange(currentPage + 3, allPages)
   
   return allPages.slice(bottomRange, topRange)
 }
@@ -76,7 +26,7 @@ const Pagination = () => {
   const range = getValidPageRange(currentPage, numPages)
 
   return (
-    <Box m="20px auto 0" gap="24px">
+    <Box m="20px auto 0" gap="24px" data-testid="pagination">
       <StyledIconButton
         disabled={currentPage === 0}
         type="chevronLeft"
@@ -85,10 +35,12 @@ const Pagination = () => {
         onClick={prevPage}
         width="40px"
         height="40px"
+        data-testid="prev-button"
       />
       <Box gap="8px">
         {range.map(page => (
           <PageButton
+            data-testid={`page-button-${page}-${currentPage === page ? 'active' : 'inactive'}`}
             key={page}
             width="40px"
             height="40px"
@@ -108,6 +60,7 @@ const Pagination = () => {
         onClick={nextPage}
         width="40px"
         height="40px"
+        data-testid="next-button"
       />
     </Box>
   )

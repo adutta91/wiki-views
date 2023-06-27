@@ -1,43 +1,13 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import Home from 'pages/Home';
-import GlobalStyles from './GlobalStyles';
-import { ThemeProvider, StyleSheetManager } from 'styled-components';
-import theme from 'constants/theme'
-import isPropValid from '@emotion/is-prop-valid';
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-} from "react-router-dom";
-
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-
-import { ArticlesProvider } from 'contexts/ArticlesContext';
+import App from './App';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
 root.render(
-  <React.StrictMode>
-    <StyleSheetManager shouldForwardProp={isPropValid}>
-      <ThemeProvider theme={theme}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <ArticlesProvider>
-            <GlobalStyles />
-            <Router>
-              <Routes>
-                <Route path="/" element={<Home />} />
-              </Routes>
-            </Router>
-          </ArticlesProvider>
-        </LocalizationProvider>
-      </ThemeProvider>
-    </StyleSheetManager>
-  </React.StrictMode>
+  <App />
 );
 
 // If you want to start measuring performance in your app, pass a function

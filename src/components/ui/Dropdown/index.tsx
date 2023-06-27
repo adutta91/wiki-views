@@ -56,6 +56,7 @@ const Dropdown = ({ dropdownContent, render, ...props }: DropdownProps) => {
       {render({ open, setOpen })}
       {open ? (
         <DropdownWrapper
+          data-testid="dropdown-container"
           open={open}
           position="absolute"
           top="82px"
