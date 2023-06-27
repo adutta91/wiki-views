@@ -87,7 +87,6 @@ const Pagination = () => {
       <Box gap="8px">
         {range.map(page => (
           <PageButton
-            fontFamily="Poppins, sans-serif"
             key={page}
             width="40px"
             height="40px"

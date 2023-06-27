@@ -4,7 +4,7 @@ import "./index.module.scss";
 const GlobalStyles = createGlobalStyle<{ theme?: any }>`
   ${({ theme }) => `
     body {
-      font-family: Lora;
+      font-family: Poppins, sans-serif;
       margin: 0;
       background: ${theme.colors.neutralGray100};
     }

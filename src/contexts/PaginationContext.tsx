@@ -46,7 +46,7 @@ export const PaginationProvider = ({
 
   useEffect(() => {
     setDisplayItems(list.slice(currentPage * numPerPage, (currentPage + 1) * numPerPage))
-  }, [list, currentPage])
+  }, [list, currentPage, numPerPage])
 
   return (
     <PaginationContext.Provider value={{

@@ -44,7 +44,6 @@ const ChevronIcon = styled(Icon)<{ open: boolean }>`
 const SelectInput = ({ label, icon, value, options, onSelect, ...props }: SelectInputProps) => {
   return (
     <Dropdown
-      fontFamily="Poppins, sans-serif"
       dropdownContent={({ setOpen }) => (
         <>
           {options.map(option => (
@@ -61,7 +60,6 @@ const SelectInput = ({ label, icon, value, options, onSelect, ...props }: Select
         <InputGroup
           onClick={() => setOpen(!open)}
           cursor="pointer"
-          fontFamily="Poppins, sans-serif"
           icon={icon}
           label={(
             <Box

@@ -14,7 +14,6 @@ import { useArticlesContext } from "contexts/ArticlesContext"
 const Wrapper = styled(Box)<{ open: boolean }>`
   ${({ open }) => `
     transition: all .2s ease-out;
-    max-height: 74px;
 
     &:hover {
       box-shadow: 0px 2px 0px 1px rgba(5, 9, 13, 0.06);
@@ -33,7 +32,6 @@ const Preview = styled.p`
     -webkit-line-clamp: 3;
     color: ${theme.colors.neutralGray600};
     display: -webkit-box;
-    font-family: Poppins, sans-serif;
     font-size: 14px;
     letter-spacing: -0.28px;
     line-height: 1.65;
@@ -104,17 +102,17 @@ const ListItem = ({ article }: { article: TopArticle }) => {
       open={open}
       flexDirection="column"
       onClick={() => setOpen(!open)}
+      maxHeight={{ xs: 'none', md: '74px' }}
     >
       <Box gap="20px">
-        <Box color={theme.colors.neutralGray500} width="20px">
+        <Box color={theme.colors.neutralGray500} width="20px" fontFamily="Lora">
           {article.rank}
         </Box>
-        <Box flex="1" color={theme.colors.black}>
+        <Box flex="1" color={theme.colors.black} fontFamily="Lora">
           {articleInfo?.title || sanitizeTitle(article.article)}
         </Box>
         <Box
           color={theme.colors.neutralGray600}
-          fontFamily="Poppins, sans-serif"
           alignItems="center"
           gap="20px"
         >
@@ -141,7 +139,6 @@ const ListItem = ({ article }: { article: TopArticle }) => {
             mt="20px"
             ml={{xs: "0", md: "40px" }}
             flexDirection="column"
-            fontFamily="Poppins, sans-serif"
           >
             <Preview>
               {articleInfo?.extract || '[extract unavailable]'}

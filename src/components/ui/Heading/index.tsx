@@ -11,6 +11,7 @@ const Heading = styled.h1`
     text-align: center;
     width: 100%;
     margin: 0 0 40px;
+    font-family: Lora;
 
     @media(max-width: ${theme.breakpointsValue.sm}px) {
       font-size: 28px;

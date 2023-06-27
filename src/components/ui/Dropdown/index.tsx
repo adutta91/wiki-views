@@ -3,6 +3,7 @@ import { Box, BoxTypes } from "../Box"
 import theme from "constants/theme"
 import { styled } from "styled-components"
 import useHandleClickOutside from 'hooks/useHandleClickOutside'
+import { FadeIn } from "../Box/TransitionedBox"
 
 export type DropdownRenderProps = {
   open: boolean
@@ -15,8 +16,9 @@ type DropdownProps = {
 } & BoxTypes
 
 
-const DropdownWrapper = styled(Box)<{ open: boolean }>`
+const DropdownWrapper = styled(FadeIn)<{ open: boolean }>`
   ${({ theme, open }) => `
+    animation-delay: 0s;
     transition: all .2s ease-out;
     transform: translateY(-20px);
     opacity: 0;

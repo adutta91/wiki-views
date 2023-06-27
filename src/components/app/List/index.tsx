@@ -15,6 +15,13 @@ const List = ({ items }: { items: TopArticle[] }) => {
       width="100%"
       mb="20px"
     >
+      {!items.length ? (
+        <Box
+          justifyContent="center"
+        >
+          No articles found
+        </Box>
+      ) : null}
       {items.map(article => <ListItem key={`${article.rank}-${article.article}`} article={article} />)}
     </Box>
   )

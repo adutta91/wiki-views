@@ -27,7 +27,6 @@ const ChevronIcon = styled(Icon)<{ open: boolean }>`
 const DatePicker = ({ label, value, onSelect, ...props }: DatePickerProps) => {
   return (
     <Dropdown
-      fontFamily="Poppins, sans-serif"
       dropdownContent={({ setOpen }) => (
         <>
           <DateCalendar
@@ -43,7 +42,6 @@ const DatePicker = ({ label, value, onSelect, ...props }: DatePickerProps) => {
         <InputGroup
           onClick={() => setOpen(!open)}
           cursor="pointer"
-          fontFamily="Poppins, sans-serif"
           icon={<CircledIcon type="calendar" fill="brandGreen" background="avocadoGreen" />}
           label={(
             <Box
