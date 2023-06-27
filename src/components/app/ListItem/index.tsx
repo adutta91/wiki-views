@@ -11,7 +11,7 @@ import { useArticlesContext } from "contexts/ArticlesContext"
 import { Wrapper, Preview, ActiveIcon } from './styles'
 
 const ListItem = ({ article }: { article: TopArticle }) => {
-  const { pinArticle, unpinArticle, isPinned } = useArticlesContext()
+  const { pinArticle, unpinArticle, isPinned, pinnedArticles } = useArticlesContext()
 
   const [open, setOpen] = useState(false)
   const [pinned, setPinned] = useState(isPinned(article))
@@ -22,6 +22,10 @@ const ListItem = ({ article }: { article: TopArticle }) => {
   const [topViews, setTopViews] = useState<TopView[]>([])
   const start = format(startOfMonth(new Date), 'yyyyMMddhh')
   const end = format(endOfMonth(new Date), 'yyyyMMddhh')
+
+  useEffect(() => {
+    setPinned(isPinned(article))
+  }, [pinnedArticles.length])
 
   useEffect(() => {
     if (open) {

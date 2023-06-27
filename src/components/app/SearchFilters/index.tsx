@@ -53,6 +53,7 @@ const SearchFilters = () => {
       justifyContent="space-between"
       flexDirection={{ xs: 'column', md: 'row' }}
       gap="16px"
+      height="96px"
       width="100%"
     >
       <DatePicker
@@ -82,7 +83,7 @@ const SearchFilters = () => {
         data-testid="country-picker"
         zIndex="1"
       />
-      <Box flex=".75">
+      <Box flex="1">
         <Button onClick={search}>Search</Button>
       </Box>
     </Box>

@@ -25,7 +25,7 @@ const InputGroup = ({ label, icon, children, ...props }: InputGroupProps) => {
   return (
     <Wrapper
       borderRadius="100px"
-      p="12px"
+      p="12px 18px 12px 12px"
       alignItems="center"
       height="72px"
       {...props}
