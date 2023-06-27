@@ -4,8 +4,12 @@ import Heading from 'components/ui/Heading'
 import SearchFilters from 'components/app/SearchFilters'
 import List from 'components/app/List'
 import { FadeIn } from 'components/ui/Box/TransitionedBox'
+import { useArticlesContext } from 'contexts/ArticlesContext'
+import { PaginationProvider } from 'contexts/PaginationContext'
 
 const Home = () => {
+  const { articles, numPerPage } = useArticlesContext()
+
   return (
     <>
       <Navbar />
@@ -17,7 +21,9 @@ const Home = () => {
           <SearchFilters />
         </FadeIn>
         <FadeIn animationDelay='0.4s' zIndex="1">
-          <List />
+          <PaginationProvider list={articles} numPerPage={numPerPage}>
+            <List />
+          </PaginationProvider>
         </FadeIn>
       </PageContent>
     </>

@@ -1,27 +1,21 @@
-import { styled } from 'styled-components'
-import { Box, BoxTypes } from '../Box'
+import { BoxTypes } from '../Box'
 import { Icon, IconProps } from './index'
 import theme, { ColorOptions } from 'constants/theme'
+import { Encircle } from '../Encircle'
 
 type CircledIconProps = {
   background: ColorOptions
   iconProps?: BoxTypes
-} & IconProps
-
-const CircledIconWrapper = styled(Box)`
-
-`
+  onClick?: () => void
+} & IconProps & BoxTypes
 
 export const CircledIcon = ({ background, fill, type, iconProps = {}, ...props }: CircledIconProps): React.ReactElement => (
-  <CircledIconWrapper
-    bgcolor={theme.colors[background]}
-    borderRadius="50%"
-    alignItems="center"
-    justifyContent="center"
+  <Encircle
     width="48px"
     height="48px"
+    background={background}
     {...props}
   >
     <Icon type={type} fill={fill} {...iconProps} />
-  </CircledIconWrapper>
+  </Encircle>
 )
