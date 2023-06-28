@@ -22,7 +22,7 @@ const App = () => (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <ArticlesProvider>
             <GlobalStyles />
-            <Router>
+            <Router basename={window.location.pathname || ''}>
               <Routes>
                 <Route path="/" element={<Home />} />
               </Routes>
