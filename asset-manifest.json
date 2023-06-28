@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/wiki-views/static/css/main.93c9234a.css",
+    "main.js": "/wiki-views/static/js/main.f6664451.js",
+    "static/js/787.a827a471.chunk.js": "/wiki-views/static/js/787.a827a471.chunk.js",
+    "index.html": "/wiki-views/index.html",
+    "main.f6664451.js.map": "/wiki-views/static/js/main.f6664451.js.map",
+    "787.a827a471.chunk.js.map": "/wiki-views/static/js/787.a827a471.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93c9234a.css",
+    "static/js/main.f6664451.js"
+  ]
+}
