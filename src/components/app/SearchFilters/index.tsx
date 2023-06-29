@@ -53,7 +53,7 @@ const SearchFilters = () => {
       justifyContent="space-between"
       flexDirection={{ xs: 'column', md: 'row' }}
       gap="16px"
-      height="96px"
+      height={{ xs: "auto", md: "96px"}}
       width="100%"
     >
       <DatePicker
