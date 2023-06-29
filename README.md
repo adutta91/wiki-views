@@ -2,8 +2,6 @@
 
 A simple SPA to search and display the most-viewed articles on wikipedia
 
-Live demo here: [https://adutta91.github.io/wiki-views/](https://adutta91.github.io/wiki-views/)
-
 ![Alt text](public/images/screenshot.png?raw=true "Home page")
 
 ## Features
